@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<meta name="description" content="My Personal Portfolio Website">
+<meta property="og:title" content="My Portfolio">
+<meta property="og:description" content="Check out my projects and work!">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF6B35;
+    --secondary: #4ECDC4;
+    --accent: #FFE66D;
+    --purple: #A855F7;
+    --bg: #0F0F1A;
+    --surface: #1A1A2E;
+    --surface2: #16213E;
+    --text: #F0F0FF;
+    --text-muted: #9090B0;
+    --border: rgba(255,255,255,0.1);
+    --gradient: linear-gradient(135deg, #FF6B35, #A855F7, #4ECDC4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: rgba(26,26,46,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    cursor: pointer;
+  }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+  nav { display: flex; gap: 0.25rem; align-items: center; }
+  nav button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-family: inherit;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  nav button:hover, nav button.active { color: var(--text); background: rgba(255,255,255,0.08); }
+  nav button.active { color: var(--primary); }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    display: flex;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 2px;
+    gap: 2px;
+  }
+  .lang-btn {
+    padding: 0.25rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    border-radius: 16px;
+  }
+  .lang-btn.active { background: var(--primary); color: #fff; }
+
+  /* SHARE BTN */
+  .share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    background: var(--gradient);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: opacity 0.2s;
+  }
+  .share-btn:hover { opacity: 0.85; }
+  .share-btn svg { width: 16px; height: 16px; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  /* SECTIONS */
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 3rem 0 2rem;
+  }
+  .hero-text h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .hero-text h1 .name-grad {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-text .role { color: var(--secondary); font-size: 1.2rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .hero-text p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.7; max-width: 500px; }
+  .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.65rem 1.4rem;
+    background: var(--gradient);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-outline {
+    padding: 0.65rem 1.4rem;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* PROFILE PIC */
+  .profile-pic-wrapper { position: relative; width: 180px; height: 180px; flex-shrink: 0; }
+  .profile-ring {
+    width: 180px; height: 180px; border-radius: 50%;
+    background: var(--gradient); padding: 3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .profile-placeholder {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: var(--surface2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; gap: 0.5rem; color: var(--text-muted); font-size: 0.75rem;
+    transition: all 0.2s;
+  }
+  .profile-placeholder:hover { background: var(--surface); color: var(--primary); }
+  .profile-placeholder svg { width: 36px; height: 36px; }
+  #profileImg { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none; }
+  .upload-overlay {
+    position: absolute; bottom: 6px; right: 6px;
+    width: 34px; height: 34px; background: var(--primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .upload-overlay:hover { transform: scale(1.1); }
+  .upload-overlay svg { width: 16px; height: 16px; }
+  input[type="file"] { display: none; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 2rem 0; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.25rem; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: rgba(255,107,53,0.4); }
+  .stat-num {
+    font-size: 2rem; font-weight: 800;
+    background: var(--gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+  /* SKILLS */
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+  .skill-tag {
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem;
+    font-weight: 500; border: 1px solid var(--border); background: var(--surface);
+    cursor: default; transition: all 0.2s;
+  }
+  .skill-tag:hover { transform: translateY(-1px); }
+  .skill-tag.c1 { border-color: rgba(255,107,53,0.5); color: #FF6B35; }
+  .skill-tag.c2 { border-color: rgba(78,205,196,0.5); color: #4ECDC4; }
+  .skill-tag.c3 { border-color: rgba(168,85,247,0.5); color: #A855F7; }
+  .skill-tag.c4 { border-color: rgba(255,230,109,0.5); color: #FFE66D; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
+  }
+  .section-header h2 { font-size: 1.5rem; font-family: 'Baloo 2', cursive; font-weight: 800; }
+
+  /* UPLOAD ZONE */
+  .upload-zone {
+    border: 2px dashed rgba(255,107,53,0.3); border-radius: 16px;
+    padding: 2.5rem; text-align: center; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 1.5rem; background: rgba(255,107,53,0.03);
+  }
+  .upload-zone:hover { border-color: var(--primary); background: rgba(255,107,53,0.07); }
+  .upload-zone svg { width: 44px; height: 44px; margin: 0 auto 1rem; color: var(--primary); display: block; }
+  .upload-zone h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .upload-zone p { color: var(--text-muted); font-size: 0.85rem; }
+
+  /* CARDS GRID */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.25rem; }
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; transition: all 0.2s;
+  }
+  .project-card:hover { border-color: rgba(255,107,53,0.5); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .card-thumb {
+    height: 140px; background: var(--gradient);
+    display: flex; align-items: center; justify-content: center; font-size: 3rem;
+    overflow: hidden; position: relative;
+  }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .card-body { padding: 1.25rem; }
+  .card-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .card-body p { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 0.9rem; line-height: 1.5; }
+  .card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .card-tag { font-size: 0.73rem; padding: 0.2rem 0.55rem; border-radius: 20px; background: rgba(255,107,53,0.12); color: var(--primary); }
+  .card-actions { display: flex; gap: 0.5rem; margin-top: 0.9rem; align-items: center; }
+  .card-view {
+    padding: 0.3rem 0.75rem; background: none; border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text-muted); font-size: 0.78rem;
+    cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .card-view:hover { border-color: var(--secondary); color: var(--secondary); }
+  .card-del {
+    padding: 0.3rem 0.75rem; background: rgba(239,68,68,0.1); color: #f87171;
+    border: none; border-radius: 8px; font-size: 0.78rem; cursor: pointer;
+    font-family: inherit; transition: all 0.2s;
+  }
+  .card-del:hover { background: rgba(239,68,68,0.2); }
+
+  /* CODE CARDS */
+  .code-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 0.9rem; }
+  .code-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); background: var(--surface2);
+  }
+  .code-filename { font-size: 0.88rem; font-family: monospace; color: var(--secondary); }
+  .code-lang { font-size: 0.72rem; color: var(--text-muted); padding: 0.15rem 0.5rem; border: 1px solid var(--border); border-radius: 4px; }
+  .code-body {
+    padding: 1rem; font-family: 'Courier New', monospace; font-size: 0.82rem;
+    color: #a8b3cf; line-height: 1.7; max-height: 200px; overflow-y: auto;
+    white-space: pre-wrap; word-break: break-word;
+  }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+    display: flex; align-items: center; gap: 1rem; transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: rgba(255,107,53,0.4); }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-info p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .contact-info a { font-size: 0.92rem; color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .contact-info a:hover { color: var(--primary); }
+
+  /* EDIT */
+  .edit-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.25rem; }
+  .edit-section h3 { margin-bottom: 1.25rem; font-size: 1.05rem; font-weight: 600; color: var(--secondary); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.65rem 1rem; color: var(--text);
+    font-family: inherit; font-size: 0.92rem; outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+  .form-group textarea { min-height: 85px; resize: vertical; }
+
+  /* MODAL */
+  .modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem; width: 90%; max-width: 520px;
+    max-height: 85vh; overflow-y: auto;
+  }
+  .modal h2 { margin-bottom: 1.5rem; font-size: 1.25rem; font-family: 'Baloo 2'; }
+  .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+  .btn-cancel {
+    padding: 0.65rem 1.4rem; background: none; border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-muted); cursor: pointer; font-family: inherit; transition: all 0.2s;
+  }
+  .btn-cancel:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+
+  /* SHARE MODAL */
+  .share-modal { max-width: 440px; }
+  .share-url-box {
+    display: flex; gap: 0.5rem; align-items: center;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 0.6rem 1rem; margin: 1rem 0;
+  }
+  .share-url-box input { flex: 1; background: none; border: none; color: var(--secondary); font-family: monospace; font-size: 0.85rem; outline: none; }
+  .copy-btn {
+    padding: 0.35rem 0.75rem; background: var(--primary); border: none;
+    border-radius: 8px; color: #fff; font-size: 0.8rem; cursor: pointer; font-family: inherit; white-space: nowrap;
+  }
+  .share-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+  .share-option {
+    padding: 0.75rem 1rem; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-family: inherit; font-size: 0.85rem;
+    cursor: pointer; display: flex; align-items: center; gap: 0.6rem; transition: all 0.2s; font-weight: 500;
+  }
+  .share-option:hover { border-color: var(--primary); color: var(--primary); }
+
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+  .empty-state svg { width: 56px; height: 56px; margin: 0 auto 1rem; display: block; opacity: 0.3; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: #22c55e; color: #fff; padding: 0.75rem 1.5rem; border-radius: 10px;
+    font-weight: 600; font-size: 0.9rem; z-index: 999; transition: transform 0.3s;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* GITHUB GUIDE */
+  .guide-steps { counter-reset: step; }
+  .guide-step {
+    display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .guide-step:last-child { border-bottom: none; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--gradient); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; flex-shrink: 0; color: #fff;
+  }
+  .step-content h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .step-content p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+  .step-content code {
+    display: inline-block; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.1rem 0.5rem; font-size: 0.82rem; color: var(--secondary); margin: 0.2rem 0;
+  }
+  .step-content a { color: var(--primary); text-decoration: none; }
+  .step-content a:hover { text-decoration: underline; }
+
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .profile-pic-wrapper { margin: 0 auto; }
+    .stats-row { grid-template-columns: repeat(3,1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    nav { display: none; }
+    header { gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="switchTab('home')">⚡ Portfolio</div>
+  <nav>
+    <button class="tab-nav active" data-tab="home" onclick="switchTab('home')"><span class="t-home">Home</span></button>
+    <button class="tab-nav" data-tab="projects" onclick="switchTab('projects')"><span class="t-projects">Projects</span></button>
+    <button class="tab-nav" data-tab="code" onclick="switchTab('code')"><span class="t-code">Code</span></button>
+    <button class="tab-nav" data-tab="contact" onclick="switchTab('contact')"><span class="t-contact">Contact</span></button>
+    <button class="tab-nav" data-tab="guide" onclick="switchTab('guide')"><span class="t-guide">🚀 Deploy</span></button>
+    <button class="tab-nav" data-tab="edit" onclick="switchTab('edit')"><span class="t-edit">✏️ Edit</span></button>
+  </nav>
+  <div class="header-right">
+    <button class="share-btn" onclick="openShare()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span id="shareBtnTxt">Share</span>
+    </button>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('hi')">हि</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <div class="section active" id="tab-home">
+    <div class="hero">
+      <div class="hero-text">
+        <h1><span class="name-grad" id="heroName">Your Name</span><br><span id="heroRole" style="color:var(--secondary);font-size:1.2rem;">Full Stack Developer</span></h1>
+        <p id="heroBio">Passionate developer building amazing things with code. Welcome to my portfolio!</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="switchTab('projects')" id="btnViewWork">View My Work</button>
+          <button class="btn-outline" onclick="switchTab('contact')" id="btnContact">Contact Me</button>
+          <button class="btn-outline" onclick="openShare()" style="border-color:rgba(168,85,247,0.4);color:var(--purple);" id="btnShare">🔗 Share</button>
+        </div>
+      </div>
+      <div class="profile-pic-wrapper">
+        <div class="profile-ring">
+          <div class="profile-placeholder" id="profilePlaceholder" onclick="document.getElementById('profileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span id="uploadPhotoTxt">Upload Photo</span>
+          </div>
+          <img id="profileImg" alt="Profile">
+        </div>
+        <div class="upload-overlay" onclick="document.getElementById('profileInput').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+        </div>
+        <input type="file" id="profileInput" accept="image/*" onchange="uploadProfilePic(event)">
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" id="statProjects">0</div><div class="stat-label" id="statProjectsLabel">Projects</div></div>
+      <div class="stat-card"><div class="stat-num" id="statCode">0</div><div class="stat-label" id="statCodeLabel">Code Files</div></div>
+      <div class="stat-card"><div class="stat-num" id="statSkills">0</div><div class="stat-label" id="statSkillsLabel">Skills</div></div>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <h2 style="font-family:'Baloo 2';font-weight:800;margin-bottom:1rem;" id="skillsHeading">Skills &amp; Technologies</h2>
+      <div class="skills-grid" id="skillsGrid">
+        <span class="skill-tag c1">HTML/CSS</span>
+        <span class="skill-tag c2">JavaScript</span>
+        <span class="skill-tag c3">Python</span>
+        <span class="skill-tag c4">React</span>
+        <span class="skill-tag c1">Node.js</span>
+        <span class="skill-tag c2">SQL</span>
+        <span class="skill-tag c3">Git</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section" id="tab-projects">
+    <div class="section-header">
+      <h2 id="projectsHeading">My Projects</h2>
+      <button class="btn-primary" onclick="openModal()" id="btnAddProject">+ Add Project</button>
+    </div>
+    <div class="cards-grid" id="projectsGrid">
+      <div class="empty-state" id="projectsEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+        <p id="noProjectsTxt">No projects yet. Click "+ Add Project"!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE -->
+  <div class="section" id="tab-code">
+    <div class="section-header">
+      <h2 id="codeHeading">My Code</h2>
+      <button class="btn-primary" onclick="document.getElementById('codeFileInput').click()" id="btnUploadCode">+ Upload Code</button>
+    </div>
+    <input type="file" id="codeFileInput" accept=".js,.py,.html,.css,.cpp,.c,.java,.ts,.json,.txt,.php,.go,.rs,.rb,.sh,.jsx,.vue,.swift,.kt" multiple onchange="uploadCodeFiles(event)">
+    <div class="upload-zone" onclick="document.getElementById('codeFileInput').click()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <h3 id="dragDropTxt">Click to upload code files</h3>
+      <p id="supportedTxt">Supported: .js .py .html .css .cpp .java .ts .jsx .php and more</p>
+    </div>
+    <div id="codeList"></div>
+    <div class="empty-state" id="codeEmpty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <p id="noCodeTxt">No code files yet. Upload your code!</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section" id="tab-contact">
+    <div class="section-header"><h2 id="contactHeading">Contact Me</h2></div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon" style="background:rgba(255,107,53,0.12);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-info"><p id="emailLabel">Email</p><a href="#" id="contactEmail">your@email.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon" style="background:rgba(78,205,196,0.12);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </div>
+        <div class="contact-info"><p id="githubLabel">GitHub</p><a href="#" id="contactGithub" target="_blank">github.com/yourname</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon" style="background:rgba(168,85,247,0.12);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div class="contact-info"><p id="linkedinLabel">LinkedIn</p><a href="#" id="contactLinkedin" target="_blank">linkedin.com/in/yourname</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon" style="background:rgba(255,230,109,0.12);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE66D" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div class="contact-info"><p id="phoneLabel">Phone</p><a href="#" id="contactPhone">+91 00000 00000</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB DEPLOY GUIDE -->
+  <div class="section" id="tab-guide">
+    <div class="section-header"><h2 id="guideHeading">🚀 GitHub Pages Pe Deploy Karo</h2></div>
+    <div class="edit-section">
+      <h3 style="color:var(--accent);">Pehle: Portfolio file download karo</h3>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">Neeche "Download Portfolio" button se <code style="background:var(--bg);padding:0.1rem 0.4rem;border-radius:4px;color:var(--secondary);">index.html</code> file download karo.</p>
+      <button class="btn-primary" onclick="downloadPortfolio()" id="btnDownload">⬇️ Download Portfolio (index.html)</button>
+    </div>
+    <div class="edit-section" style="margin-top:0;">
+      <h3 style="color:var(--accent);" id="stepsHeading">Steps to go LIVE 🌐</h3>
+      <div class="guide-steps">
+        <div class="guide-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>GitHub account banao</h4>
+            <p>Agar nahi hai toh <a href="https://github.com/signup" target="_blank">github.com/signup</a> pe free account banao.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>New Repository banao</h4>
+            <p>GitHub pe login karo → <strong>New</strong> button click karo → Repository name rakho: <code>username.github.io</code> (apna GitHub username likhna) → <strong>Public</strong> select karo → <strong>Create repository</strong>.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>index.html upload karo</h4>
+            <p>Repository ke andar jao → <strong>Add file → Upload files</strong> → Downloaded <code>index.html</code> drag karo → <strong>Commit changes</strong> click karo.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>GitHub Pages enable karo</h4>
+            <p>Repository → <strong>Settings</strong> → <strong>Pages</strong> → Source mein <code>main</code> branch select karo → <strong>Save</strong>.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>🎉 Website LIVE!</h4>
+            <p>2-3 minute baad tera portfolio live hoga: <code>https://username.github.io</code> — is URL ko kisi ko bhi share kar sakte ho!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT -->
+  <div class="section" id="tab-edit">
+    <div class="section-header"><h2 id="editHeading">Edit Portfolio</h2></div>
+    <div class="edit-section">
+      <h3 id="personalInfoHeading">Personal Information</h3>
+      <div class="form-row">
+        <div class="form-group"><label id="nameLabel">Your Name</label><input type="text" id="editName" placeholder="Rahul Kumar" oninput="saveProfile()"></div>
+        <div class="form-group"><label id="roleLabel">Role / Title</label><input type="text" id="editRole" placeholder="Full Stack Developer" oninput="saveProfile()"></div>
+      </div>
+      <div class="form-group"><label id="bioLabel">Bio / About</label><textarea id="editBio" placeholder="Tell us about yourself..." oninput="saveProfile()"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" id="editEmail" placeholder="your@email.com" oninput="saveProfile()"></div>
+        <div class="form-group"><label>Phone</label><input type="text" id="editPhone" placeholder="+91 00000 00000" oninput="saveProfile()"></div>
+        <div class="form-group"><label>GitHub</label><input type="text" id="editGithub" placeholder="github.com/yourname" oninput="saveProfile()"></div>
+        <div class="form-group"><label>LinkedIn</label><input type="text" id="editLinkedin" placeholder="linkedin.com/in/yourname" oninput="saveProfile()"></div>
+      </div>
+    </div>
+    <div class="edit-section">
+      <h3 id="skillsEditHeading">Skills (comma se alag karo)</h3>
+      <div class="form-group"><input type="text" id="editSkills" placeholder="HTML, CSS, JavaScript, Python, React" oninput="saveProfile()"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- PROJECT MODAL -->
+<div class="modal-bg" id="projectModal">
+  <div class="modal">
+    <h2 id="modalTitle">Add New Project</h2>
+    <div class="form-group"><label id="projNameLabel">Project Name *</label><input type="text" id="projName" placeholder="My Awesome App"></div>
+    <div class="form-group"><label id="projDescLabel">Description</label><textarea id="projDesc" placeholder="What does this project do?"></textarea></div>
+    <div class="form-group"><label id="projTagsLabel">Tech Tags (comma separated)</label><input type="text" id="projTags" placeholder="React, Node.js, MongoDB"></div>
+    <div class="form-group"><label id="projLinkLabel">Project / GitHub Link</label><input type="text" id="projLink" placeholder="https://github.com/yourname/project"></div>
+    <div class="form-group"><label id="projImgLabel">Project Image</label><input type="file" id="projImageInput" accept="image/*" style="display:block;color:var(--text-muted);font-size:0.88rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0.5rem;width:100%;"></div>
+    <div class="form-group"><label id="projEmojiLabel">Emoji Icon (agar image nahi)</label><input type="text" id="projEmoji" placeholder="🚀" maxlength="2" style="width:80px;"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveProject()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-bg" id="shareModal">
+  <div class="modal share-modal">
+    <h2>🔗 <span id="shareTitle">Share Portfolio</span></h2>
+    <p style="color:var(--text-muted);font-size:0.88rem;" id="shareDesc">Apna portfolio link share karo ya download karo.</p>
+    <div class="share-url-box">
+      <input type="text" id="shareUrlInput" readonly value="Deploy karo to live URL milegi!">
+      <button class="copy-btn" onclick="copyUrl()" id="copyUrlBtn">Copy</button>
+    </div>
+    <div class="share-options">
+      <button class="share-option" onclick="shareWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2.003C6.484 2.003 2 6.486 2 12.003c0 1.777.465 3.497 1.348 5.013L2 22l5.116-1.342A9.96 9.96 0 0012.004 22c5.52 0 9.996-4.481 9.996-9.997 0-5.519-4.476-10-9.996-10zm0 18.181a8.17 8.17 0 01-4.165-1.14l-.299-.178-3.035.796.81-2.962-.196-.308A8.161 8.161 0 013.836 12c0-4.506 3.668-8.172 8.168-8.172 4.502 0 8.168 3.666 8.168 8.172 0 4.505-3.666 8.184-8.168 8.184z"/></svg>
+        WhatsApp
+      </button>
+      <button class="share-option" onclick="shareLinkedIn()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#0077B5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </button>
+      <button class="share-option" onclick="shareEmail()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </button>
+      <button class="share-option" onclick="downloadPortfolio()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span id="downloadTxt">Download HTML</span>
+      </button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeShare()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Copied!</div>
+
+<script>
+// ========== LANGUAGE ==========
+const TEXTS = {
+  en: {
+    home:'Home', projects:'Projects', code:'Code', contact:'Contact', guide:'🚀 Deploy', edit:'✏️ Edit',
+    viewWork:'View My Work', contactMe:'Contact Me', share:'Share', uploadPhoto:'Upload Photo',
+    statProjects:'Projects', statCode:'Code Files', statSkills:'Skills',
+    skillsHeading:'Skills & Technologies',
+    projectsHeading:'My Projects', addProject:'+ Add Project', noProjects:'No projects yet. Click "+ Add Project"!',
+    codeHeading:'My Code', uploadCode:'+ Upload Code',
+    dragDrop:'Click to upload code files', supported:'Supported: .js .py .html .css .cpp .java .ts .jsx .php and more',
+    noCode:'No code files yet. Upload your code!',
+    contactHeading:'Contact Me', email:'Email', github:'GitHub', linkedin:'LinkedIn', phone:'Phone',
+    guideHeading:'🚀 GitHub Pages Pe Deploy Karo',
+    editHeading:'Edit Portfolio', personalInfo:'Personal Information',
+    nameL:'Your Name', roleL:'Role / Title', bioL:'Bio / About', skillsEdit:'Skills (comma se alag karo)',
+    modalTitle:'Add New Project', projName:'Project Name *', projDesc:'Description',
+    projTags:'Tech Tags (comma separated)', projLink:'Project / GitHub Link', projImg:'Project Image',
+    projEmoji:'Emoji Icon (agar image nahi)',
+    shareTitle:'Share Portfolio', shareDesc:'Apna portfolio link share karo ya download karo.',
+    downloadTxt:'Download HTML', download:'⬇️ Download Portfolio (index.html)'
+  },
+  hi: {
+    home:'होम', projects:'प्रोजेक्ट', code:'कोड', contact:'संपर्क', guide:'🚀 डिप्लॉय', edit:'✏️ बदलें',
+    viewWork:'काम देखें', contactMe:'संपर्क करें', share:'शेयर', uploadPhoto:'फोटो अपलोड करें',
+    statProjects:'प्रोजेक्ट', statCode:'कोड फाइलें', statSkills:'स्किल्स',
+    skillsHeading:'स्किल्स और टेक्नोलॉजी',
+    projectsHeading:'मेरे प्रोजेक्ट', addProject:'+ प्रोजेक्ट जोड़ें', noProjects:'अभी कोई प्रोजेक्ट नहीं!',
+    codeHeading:'मेरा कोड', uploadCode:'+ कोड अपलोड करें',
+    dragDrop:'कोड फाइल अपलोड करने के लिए क्लिक करें', supported:'समर्थित: .js .py .html .css .cpp .java .ts और अधिक',
+    noCode:'अभी कोई कोड नहीं। अपना कोड अपलोड करें!',
+    contactHeading:'संपर्क करें', email:'ईमेल', github:'गिटहब', linkedin:'लिंक्डइन', phone:'फोन',
+    guideHeading:'🚀 GitHub Pages पर डिप्लॉय करो',
+    editHeading:'पोर्टफोलियो बदलें', personalInfo:'व्यक्तिगत जानकारी',
+    nameL:'आपका नाम', roleL:'पद / टाइटल', bioL:'परिचय', skillsEdit:'स्किल्स (कॉमा से अलग करें)',
+    modalTitle:'नया प्रोजेक्ट जोड़ें', projName:'प्रोजेक्ट का नाम *', projDesc:'विवरण',
+    projTags:'टेक टैग (कॉमा से अलग)', projLink:'प्रोजेक्ट/GitHub लिंक', projImg:'प्रोजेक्ट छवि',
+    projEmoji:'इमोजी आइकन (agar image नहीं)',
+    shareTitle:'पोर्टफोलियो शेयर करें', shareDesc:'अपना पोर्टफोलियो लिंक शेयर करें।',
+    downloadTxt:'HTML डाउनलोड', download:'⬇️ पोर्टफोलियो डाउनलोड करें (index.html)'
+  }
+};
+let lang = 'en';
+let profile = {};
+let projects = [];
+let codeFiles = [];
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === (l==='en'?'EN':'हि')));
+  const T = TEXTS[l];
+  const map = {
+    shareBtnTxt:'share', btnViewWork:'viewWork', btnContact:'contactMe', btnShare:'share',
+    uploadPhotoTxt:'uploadPhoto', statProjectsLabel:'statProjects', statCodeLabel:'statCode',
+    statSkillsLabel:'statSkills', skillsHeading:'skillsHeading', projectsHeading:'projectsHeading',
+    btnAddProject:'addProject', noProjectsTxt:'noProjects', codeHeading:'codeHeading',
+    btnUploadCode:'uploadCode', dragDropTxt:'dragDrop', supportedTxt:'supported', noCodeTxt:'noCode',
+    contactHeading:'contactHeading', emailLabel:'email', githubLabel:'github', linkedinLabel:'linkedin',
+    phoneLabel:'phone', guideHeading:'guideHeading', editHeading:'editHeading',
+    personalInfoHeading:'personalInfo', nameLabel:'nameL', roleLabel:'roleL', bioLabel:'bioL',
+    skillsEditHeading:'skillsEdit', modalTitle:'modalTitle', projNameLabel:'projName',
+    projDescLabel:'projDesc', projTagsLabel:'projTags', projLinkLabel:'projLink', projImgLabel:'projImg',
+    projEmojiLabel:'projEmoji', shareTitle:'shareTitle', shareDesc:'shareDesc',
+    downloadTxt:'downloadTxt', btnDownload:'download'
+  };
+  Object.entries(map).forEach(([id, key]) => { const el = document.getElementById(id); if(el && T[key]) el.textContent = T[key]; });
+  document.querySelectorAll('.tab-nav').forEach(btn => { const t = btn.dataset.tab; if(T[t]) btn.querySelector('span').textContent = T[t]; });
+  if(profile.name) document.getElementById('heroName').textContent = profile.name;
+  if(profile.role) document.getElementById('heroRole').textContent = profile.role;
+  if(profile.bio) document.getElementById('heroBio').textContent = profile.bio;
+}
+
+// ========== TABS ==========
+function switchTab(tabId) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-nav').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  const btn = document.querySelector(`[data-tab="${tabId}"]`);
+  if(btn) btn.classList.add('active');
+}
+
+// ========== PROFILE ==========
+function saveProfile() {
+  profile = {
+    name: document.getElementById('editName').value,
+    role: document.getElementById('editRole').value,
+    bio: document.getElementById('editBio').value,
+    email: document.getElementById('editEmail').value,
+    phone: document.getElementById('editPhone').value,
+    github: document.getElementById('editGithub').value,
+    linkedin: document.getElementById('editLinkedin').value,
+    skills: document.getElementById('editSkills').value
+  };
+  try { localStorage.setItem('pf_profile', JSON.stringify(profile)); } catch(e){}
+  applyProfile();
+}
+
+function applyProfile() {
+  if(profile.name) document.getElementById('heroName').textContent = profile.name;
+  if(profile.role) document.getElementById('heroRole').textContent = profile.role;
+  if(profile.bio) document.getElementById('heroBio').textContent = profile.bio;
+  if(profile.email) { const el = document.getElementById('contactEmail'); el.textContent = profile.email; el.href = 'mailto:'+profile.email; }
+  if(profile.phone) { document.getElementById('contactPhone').textContent = profile.phone; }
+  if(profile.github) { const el = document.getElementById('contactGithub'); el.textContent = profile.github; el.href = 'https://'+profile.github.replace(/^https?:\/\//,''); }
+  if(profile.linkedin) { const el = document.getElementById('contactLinkedin'); el.textContent = profile.linkedin; el.href = 'https://'+profile.linkedin.replace(/^https?:\/\//,''); }
+  if(profile.skills) {
+    const tags = profile.skills.split(',').map(s=>s.trim()).filter(Boolean);
+    const colors = ['c1','c2','c3','c4'];
+    document.getElementById('skillsGrid').innerHTML = tags.map((t,i) => `<span class="skill-tag ${colors[i%4]}">${t}</span>`).join('');
+    document.getElementById('statSkills').textContent = tags.length;
+  }
+  document.getElementById('statProjects').textContent = projects.length;
+  document.getElementById('statCode').textContent = codeFiles.length;
+}
+
+function uploadProfilePic(e) {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('profileImg');
+    img.src = ev.target.result; img.style.display = 'block';
+    document.getElementById('profilePlaceholder').style.display = 'none';
+    try { localStorage.setItem('pf_pic', ev.target.result); } catch(er){}
+  };
+  reader.readAsDataURL(file);
+}
+
+// ========== PROJECTS ==========
+let pendingProjImage = null;
+document.getElementById('projImageInput').addEventListener('change', function(e) {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => { pendingProjImage = ev.target.result; };
+  reader.readAsDataURL(file);
+});
+
+function openModal() {
+  ['projName','projDesc','projTags','projLink'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('projEmoji').value = '🚀';
+  pendingProjImage = null;
+  document.getElementById('projectModal').classList.add('open');
+}
+function closeModal() { document.getElementById('projectModal').classList.remove('open'); }
+
+function saveProject() {
+  const name = document.getElementById('projName').value.trim();
+  if(!name) { alert('Project name likhna zaroori hai!'); return; }
+  const proj = {
+    id: Date.now(), name, desc: document.getElementById('projDesc').value,
+    tags: document.getElementById('projTags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    link: document.getElementById('projLink').value,
+    emoji: document.getElementById('projEmoji').value || '🚀',
+    image: pendingProjImage
+  };
+  pendingProjImage = null;
+  projects.push(proj);
+  try { localStorage.setItem('pf_projects', JSON.stringify(projects.map(p=>({...p,image:p.image?p.image.substring(0,50000):null})))); } catch(e){}
+  renderProjects(); applyProfile(); closeModal();
+  showToast('Project add ho gaya! 🎉');
+}
+
+function deleteProject(id) {
+  if(!confirm('Project delete karna chahte ho?')) return;
+  projects = projects.filter(p => p.id !== id);
+  try { localStorage.setItem('pf_projects', JSON.stringify(projects)); } catch(e){}
+  renderProjects(); applyProfile();
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projectsGrid');
+  const empty = document.getElementById('projectsEmpty');
+  if(projects.length === 0) { grid.innerHTML = ''; grid.appendChild(empty); empty.style.display='block'; return; }
+  grid.innerHTML = projects.map(p => `
+    <div class="project-card">
+      <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}">` : p.emoji}</div>
+      <div class="card-body">
+        <h3>${escHtml(p.name)}</h3>
+        <p>${escHtml(p.desc || 'No description added.')}</p>
+        <div class="card-tags">${p.tags.map(t=>`<span class="card-tag">${escHtml(t)}</span>`).join('')}</div>
+        <div class="card-actions">
+          ${p.link ? `<a href="${escHtml(p.link)}" target="_blank" class="card-view">View →</a>` : ''}
+          <button class="card-del" onclick="deleteProject(${p.id})">Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========== CODE FILES ==========
+function uploadCodeFiles(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      codeFiles.push({ id: Date.now()+Math.random(), name: file.name, content: ev.target.result });
+      try { localStorage.setItem('pf_code', JSON.stringify(codeFiles.map(f=>({...f,content:f.content.substring(0,8000)})))); } catch(er){}
+      renderCode(); applyProfile();
+    };
+    reader.readAsText(file);
+  });
+  showToast('Code file upload ho gaya! ✅');
+}
+
+function deleteCode(id) {
+  codeFiles = codeFiles.filter(f => f.id !== id);
+  try { localStorage.setItem('pf_code', JSON.stringify(codeFiles)); } catch(e){}
+  renderCode(); applyProfile();
+}
+
+function renderCode() {
+  const list = document.getElementById('codeList');
+  const empty = document.getElementById('codeEmpty');
+  if(codeFiles.length===0) { empty.style.display='block'; list.innerHTML=''; return; }
+  empty.style.display='none';
+  list.innerHTML = codeFiles.map(f => {
+    const ext = f.name.split('.').pop().toUpperCase();
+    return `<div class="code-card">
+      <div class="code-header">
+        <span class="code-filename">${escHtml(f.name)}</span>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <span class="code-lang">${ext}</span>
+          <button class="card-del" style="margin:0;" onclick="deleteCode(${f.id})">Delete</button>
+        </div>
+      </div>
+      <div class="code-body">${escHtml(f.content.substring(0,1500))}${f.content.length>1500?'\n\n... (aur content hai, download karke dekho)':''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ========== SHARE ==========
+function openShare() {
+  const liveUrl = window.location.href.includes('github.io') ? window.location.href : 'GitHub Pages pe deploy karo to live URL milegi!';
+  document.getElementById('shareUrlInput').value = liveUrl;
+  document.getElementById('shareModal').classList.add('open');
+}
+function closeShare() { document.getElementById('shareModal').classList.remove('open'); }
+
+function copyUrl() {
+  const url = document.getElementById('shareUrlInput').value;
+  navigator.clipboard.writeText(url).then(() => showToast('URL copy ho gaya! 📋')).catch(() => {
+    document.getElementById('shareUrlInput').select(); document.execCommand('copy'); showToast('Copied! 📋');
+  });
+}
+
+function shareWhatsApp() {
+  const name = profile.name || 'My Portfolio';
+  const url = window.location.href.includes('github.io') ? window.location.href : 'https://github.com';
+  window.open(`https://wa.me/?text=${encodeURIComponent(`Check out ${name}'s portfolio! ${url}`)}`);
+}
+function shareLinkedIn() {
+  const url = window.location.href.includes('github.io') ? window.location.href : 'https://github.com';
+  window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent((profile.name||'My')+" Portfolio")}`);
+}
+function shareEmail() {
+  const name = profile.name || 'My Portfolio';
+  const url = window.location.href.includes('github.io') ? window.location.href : '(deploy karo to URL milegi)';
+  window.location.href = `mailto:?subject=${encodeURIComponent(name+"'s Portfolio")}&body=${encodeURIComponent("Check out my portfolio: "+url)}`;
+}
+
+// ========== DOWNLOAD ==========
+function downloadPortfolio() {
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  showToast('Download shuru ho gaya! ⬇️');
+}
+
+// ========== UTILS ==========
+function escHtml(s) {
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ========== LOAD DATA ==========
+function loadData() {
+  try {
+    const p = localStorage.getItem('pf_profile');
+    if(p) {
+      profile = JSON.parse(p);
+      if(profile.name) document.getElementById('editName').value = profile.name;
+      if(profile.role) document.getElementById('editRole').value = profile.role;
+      if(profile.bio) document.getElementById('editBio').value = profile.bio;
+      if(profile.email) document.getElementById('editEmail').value = profile.email;
+      if(profile.phone) document.getElementById('editPhone').value = profile.phone;
+      if(profile.github) document.getElementById('editGithub').value = profile.github;
+      if(profile.linkedin) document.getElementById('editLinkedin').value = profile.linkedin;
+      if(profile.skills) document.getElementById('editSkills').value = profile.skills;
+    }
+    const pic = localStorage.getItem('pf_pic');
+    if(pic) { document.getElementById('profileImg').src=pic; document.getElementById('profileImg').style.display='block'; document.getElementById('profilePlaceholder').style.display='none'; }
+    const pr = localStorage.getItem('pf_projects');
+    if(pr) projects = JSON.parse(pr);
+    const cd = localStorage.getItem('pf_code');
+    if(cd) codeFiles = JSON.parse(cd);
+  } catch(e) { console.log('Load error:', e); }
+  renderProjects(); renderCode(); applyProfile();
+}
+
+loadData();
+</script>
+</body>
+</html>
